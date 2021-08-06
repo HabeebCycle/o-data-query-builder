@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.habeebcycle.framework.querybuilder.keyword.QueryKeyword.*;
+import static com.habeebcycle.framework.querybuilder.utils.Constant.AMP;
+import static com.habeebcycle.framework.querybuilder.utils.Constant.AND;
 import static java.lang.String.format;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class QueryBuilder {
 
@@ -18,101 +22,99 @@ public class QueryBuilder {
     public QueryBuilder() {}
 
     public QueryBuilder orderBy(String fields) {
-        this.clear(QueryKeyword.ORDER_BY);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.ORDER_BY,
-                format("%s%s", QueryKeyword.ORDER_BY.getKeyword(), fields)));
+        this.clear(ORDER_BY);
+        this.queryFragment.add(new QueryFragment(ORDER_BY,
+                format("%s%s", ORDER_BY.getKeyword(), fields)));
         return this;
     }
 
     public QueryBuilder top(int top) {
-        this.clear(QueryKeyword.TOP);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.TOP,
-                format("%s%s", QueryKeyword.TOP.getKeyword(), top)));
+        this.clear(TOP);
+        this.queryFragment.add(new QueryFragment(TOP,
+                format("%s%s", TOP.getKeyword(), top)));
         return this;
     }
 
     public QueryBuilder skip(int skip) {
-        this.clear(QueryKeyword.SKIP);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.SKIP,
-                format("%s%s", QueryKeyword.SKIP.getKeyword(), skip)));
+        this.clear(SKIP);
+        this.queryFragment.add(new QueryFragment(SKIP,
+                format("%s%s", SKIP.getKeyword(), skip)));
         return this;
     }
 
     public QueryBuilder count() {
-        this.clear(QueryKeyword.COUNT);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.COUNT,
-                format("%s%s", QueryKeyword.COUNT.getKeyword(), true)));
+        this.clear(COUNT);
+        this.queryFragment.add(new QueryFragment(COUNT,
+                format("%s%s", COUNT.getKeyword(), true)));
         return this;
     }
 
     public QueryBuilder expand(String fields) {
-        this.clear(QueryKeyword.EXPAND);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.EXPAND,
-                format("%s%s", QueryKeyword.EXPAND.getKeyword(), fields)));
+        this.clear(EXPAND);
+        this.queryFragment.add(new QueryFragment(EXPAND,
+                format("%s%s", EXPAND.getKeyword(), fields)));
         return this;
     }
 
     public QueryBuilder select(String fields) {
-        this.clear(QueryKeyword.SELECT);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.SELECT,
-                format("%s%s", QueryKeyword.SELECT.getKeyword(), fields)));
+        this.clear(SELECT);
+        this.queryFragment.add(new QueryFragment(SELECT,
+                format("%s%s", SELECT.getKeyword(), fields)));
         return this;
     }
 
     public QueryBuilder filter(Function<FilterBuilder, FilterBuilder> filter) {
-        return this.filter(filter, "and");
+        return this.filter(filter, AND);
     }
 
     public QueryBuilder filter(Function<FilterBuilder, FilterBuilder> filter, String operator) {
-        this.clear(QueryKeyword.FILTER);
-        this.queryFragment.add(new QueryFragment(QueryKeyword.FILTER,
+        this.clear(FILTER);
+        this.queryFragment.add(new QueryFragment(FILTER,
                 filter.apply(new FilterBuilder()).toQuery(operator)));
         return this;
     }
 
-    public QueryBuilder clear(QueryKeyword queryKeyword) {
-        this.queryFragment
-                .removeIf(f -> f.getQueryKeyword().equals(queryKeyword));
-        return this;
-    }
-
     public String toQuery() {
-        //this.queryFragment.forEach(f -> System.out.println(f.getValue()));
         if(this.queryFragment.isEmpty())
-            return "";
+            return EMPTY;
 
         List<QueryFragment> sortedFragments = this.queryFragment
                 .stream()
                 .sorted(Comparator.comparing(QueryFragment::getKeywordOrder))
                 .collect(Collectors.toList());
         List<QueryFragment> unSortedFragment = sortedFragments.stream()
-                .filter(f -> !f.getQueryKeyword().equals(QueryKeyword.FILTER))
+                .filter(f -> !f.getQueryKeyword().equals(FILTER))
                 .collect(Collectors.toList());
         List<QueryFragment> filterFragment = sortedFragments.stream()
-                .filter(f -> f.getQueryKeyword().equals(QueryKeyword.FILTER))
+                .filter(f -> f.getQueryKeyword().equals(FILTER))
                 .collect(Collectors.toList());
 
         String query = format("?%s",
                 sortedFragments.stream()
-                        .filter(f -> !f.getQueryKeyword().equals(QueryKeyword.FILTER))
+                        .filter(f -> !f.getQueryKeyword().equals(FILTER))
                         .map(QueryFragment::getValue)
-                        .collect(Collectors.joining("&")));
+                        .collect(Collectors.joining(AMP)));
 
         if(filterFragment.isEmpty())
             return query;
 
         if(!unSortedFragment.isEmpty())
-            query = query.concat("&");
+            query = query.concat(AMP);
 
-        return query.concat(parseFilters(filterFragment, "and").trim());
+        return query.concat(parseFilters(filterFragment, AND).trim());
     }
 
     private String parseFilters(List<QueryFragment> fragments, String operator) {
         if(fragments == null || fragments.isEmpty())
-            return "";
+            return EMPTY;
 
-        return QueryKeyword.FILTER.getKeyword().concat(
+        return FILTER.getKeyword().concat(
                 fragments.stream().map(QueryFragment::getValue)
                 .collect(Collectors.joining(format(" %s ", operator))));
+    }
+
+    private void clear(QueryKeyword queryKeyword) {
+        this.queryFragment
+                .removeIf(f -> f.getQueryKeyword().equals(queryKeyword));
     }
 }

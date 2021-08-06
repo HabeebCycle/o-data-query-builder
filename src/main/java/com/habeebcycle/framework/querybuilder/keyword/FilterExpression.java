@@ -1,8 +1,8 @@
 package com.habeebcycle.framework.querybuilder.keyword;
 
 public enum FilterExpression {
-    EQUAL("eq"),
-    NOT_EQUAL("ne"),
+    EQUALS("eq"),
+    NOT_EQUALS("ne"),
     GREATER_THAN("gt"),
     LESS_THAN("le"),
     GREATER_THAN_EQUAL("ge"),
