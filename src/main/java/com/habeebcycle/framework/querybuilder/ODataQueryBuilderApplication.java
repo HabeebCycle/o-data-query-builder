@@ -72,7 +72,7 @@ public class ODataQueryBuilderApplication {
                 .filter(f -> f
                     .filterExpression("Property1", "eq", "Value1")
                     .filterExpression("Property2", "eq", "Value2")
-                    .or(f1 -> f1  //can be - 'and'
+                    .and(f1 -> f1  //can be - 'and'
                         .filterExpression("Property3", "eq", "Value3")
                         .filterExpression("Property4", "eq", "Value4")
                     ),
@@ -80,7 +80,18 @@ public class ODataQueryBuilderApplication {
                 )
                 .toQuery();
 
-        System.out.println(query);
+        String query7 = new QueryBuilder()
+                .filter(f -> f
+                        .filterExpression("Property1", "eq", "Value1")
+                        .filterExpression("Property2", "eq", "Value2")
+                        .or(f1 -> f1  //can be - 'or'
+                                .filterExpression("Property3", "eq", "Value3")
+                                .filterExpression("Property4", "eq", "Value4")
+                        )
+                )
+                .toQuery();
+
+        System.out.println(query7);
 
     }
 
