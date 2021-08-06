@@ -1,5 +1,3 @@
-## Recently patched and updated! Looking For Contributors.
-
 # odata-query-builder
 OData Query Builder in Java for Java Applications
 
@@ -158,4 +156,4 @@ String query6 = new QueryBuilder()
 ```
 Outputs: `?$filter=Property1 eq 'Value1' and Property2 eq 'Value2' and (Property3 eq 'Value3' or Property4 eq 'Value4')`
 
-
+#### Recently patched and updated! Looking For Contributors.

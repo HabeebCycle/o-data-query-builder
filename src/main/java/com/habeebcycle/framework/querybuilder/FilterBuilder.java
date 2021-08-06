@@ -2,7 +2,6 @@ package com.habeebcycle.framework.querybuilder;
 
 import com.habeebcycle.framework.querybuilder.fragment.QueryFragment;
 import com.habeebcycle.framework.querybuilder.keyword.FilterExpression;
-import com.habeebcycle.framework.querybuilder.keyword.QueryKeyword;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -59,6 +59,4 @@ public class FilterPhrases {
     public static String round(String param, FilterExpression expression, int result) {
         return format("round(%s) %s %s", param, expression.getExpression(), result);
     }
-
-    //round(Freight) eq 32
 }
