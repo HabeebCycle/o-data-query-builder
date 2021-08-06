@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>OData Query Builder</name>
+    <description>An eloquently fluent OData query builder for.</description>
+    <url>https://github.com/HabeebCycle/o-data-query-builder</url>
+
+    <groupId>com.habeebcycle.framework</groupId>
+    <artifactId>o-data-query-builder</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/HabeebCycle/o-data-query-builder.git</connection>
+        <developerConnection>scm:git:ssh://github.com:HabeebCycle/o-data-query-builder.git</developerConnection>
+        <url>https://github.com/HabeebCycle/o-data-query-builder</url>
+    </scm>
+
+    <properties>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <developers>
+        <developer>
+            <name>Habeeb Okunade</name>
+            <email>habeeb.okunade@yahoo.com</email>
+            <organization>HabeebCycle</organization>
+            <organizationUrl>https://github.com/HabeebCycle</organizationUrl>
+        </developer>
+    </developers>
+
+    <build>
+        <finalName>o-data-query-builder</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
