@@ -19,7 +19,7 @@ class QueryBuilderApplicationTests {
                 .expand("MyProps")
                 .orderBy("MyProp2")
                 .filter(f -> f.filterExpression("Property", EQUALS, "MyValue"))
-                .select("My Properties,mmmm")
+                .select("My Properties, mmmm")
                 .toQuery();
 
         Assertions.assertEquals(expected, query);

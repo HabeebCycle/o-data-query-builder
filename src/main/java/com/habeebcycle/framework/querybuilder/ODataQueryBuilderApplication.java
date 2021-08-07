@@ -21,13 +21,15 @@ public class ODataQueryBuilderApplication {
         //LocalDateTime dt = LocalDateTime.of(2020, 8, 5, 21, 12, 0);
         System.out.println(dt);*/
         final String ZULU_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-        String strDate = "03/02/2007 05:36 pm";
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
+        String strDate = "03/02/2007 05:36:54 pm";
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
         LocalDateTime ldt = LocalDateTime.parse(strDate, format);
         System.out.println(ldt);
 
         DateTimeFormatter newFormat = DateTimeFormatter.ofPattern(ZULU_TIME_FORMAT);
         System.out.println(ldt.format(newFormat));
+        System.out.println(LocalDateTime.now().format(newFormat)); //2021-08-07T20:10:52.358Z
+        System.out.println(LocalDateTime.parse("2021-08-07T20:10:52.358Z", newFormat)); //2021-08-07T20:10:52.358
 
         //System.out.println(myTest(x -> x.filterPhrase("phrase1").filterPhrase("phrase2")));
         //System.out.println(QueryKeyword.FILTER.getKeyword());

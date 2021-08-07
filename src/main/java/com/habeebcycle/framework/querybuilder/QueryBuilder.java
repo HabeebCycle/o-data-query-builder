@@ -10,9 +10,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.habeebcycle.framework.querybuilder.keyword.QueryKeyword.*;
-import static com.habeebcycle.framework.querybuilder.utils.Constant.AMP;
-import static com.habeebcycle.framework.querybuilder.utils.Constant.AND;
+import static com.habeebcycle.framework.querybuilder.utils.Constant.*;
 import static java.lang.String.format;
+import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class QueryBuilder {
@@ -57,9 +57,17 @@ public class QueryBuilder {
     }
 
     public QueryBuilder select(String fields) {
+        return select(fields.split(COM));
+    }
+
+    public QueryBuilder select(String ...fields) {
+        return select(asList(fields));
+    }
+
+    public QueryBuilder select(List<String> fields) {
         this.clear(SELECT);
         this.queryFragment.add(new QueryFragment(SELECT,
-                format("%s%s", SELECT.getKeyword(), fields)));
+                format("%s%s", SELECT.getKeyword(), trimJoin(fields))));
         return this;
     }
 
@@ -116,5 +124,9 @@ public class QueryBuilder {
     private void clear(QueryKeyword queryKeyword) {
         this.queryFragment
                 .removeIf(f -> f.getQueryKeyword().equals(queryKeyword));
+    }
+
+    private String trimJoin(List<String> arr) {
+        return arr.stream().map(String::trim).collect(Collectors.joining(COM));
     }
 }
