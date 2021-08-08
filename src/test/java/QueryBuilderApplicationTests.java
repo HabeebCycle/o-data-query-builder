@@ -1,11 +1,11 @@
-import com.habeebcycle.framework.querybuilder.QueryBuilder;
+import io.github.habeebcycle.querybuilder.QueryBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static com.habeebcycle.framework.querybuilder.keyword.FilterExpression.*;
-import static com.habeebcycle.framework.querybuilder.keyword.FilterPhrases.*;
-import static com.habeebcycle.framework.querybuilder.utils.Constant.AND;
-import static com.habeebcycle.framework.querybuilder.utils.Constant.OR;
+import static io.github.habeebcycle.querybuilder.keyword.FilterExpression.EQUALS;
+import static io.github.habeebcycle.querybuilder.keyword.FilterPhrases.*;
+import static io.github.habeebcycle.querybuilder.utils.Constant.AND;
+import static io.github.habeebcycle.querybuilder.utils.Constant.OR;
 
 class QueryBuilderApplicationTests {
 

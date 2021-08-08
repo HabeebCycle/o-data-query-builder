@@ -1,17 +1,10 @@
-package com.habeebcycle.framework.querybuilder;
+package io.github.habeebcycle.querybuilder;
 
-import com.habeebcycle.framework.querybuilder.keyword.QueryKeyword;
+import io.github.habeebcycle.querybuilder.keyword.FilterExpression;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
-
-import static com.habeebcycle.framework.querybuilder.keyword.FilterExpression.EQUALS;
 
 public class ODataQueryBuilderApplication {
     public static void main(String[] args) {
@@ -40,12 +33,12 @@ public class ODataQueryBuilderApplication {
                 .skip(5)
                 .expand("MyProps")
                 .orderBy("MyProp2")
-                .filter(f -> f.filterExpression("Property", EQUALS, "MyValue"))
-                .select("My Properties,mmmm")
+                .filter(f -> f.filterExpression("Property", FilterExpression.EQUALS, "MyValue"))
+                .select("My Properties")
                 .toQuery();
 
         String query2 = new QueryBuilder()
-                .filter(f -> f.filterExpression("Property1", EQUALS, "Value1"))
+                .filter(f -> f.filterExpression("Property1", FilterExpression.EQUALS, "Value1"))
                 .toQuery();
 
         String query3 = new QueryBuilder()
@@ -60,25 +53,25 @@ public class ODataQueryBuilderApplication {
 
         String query4 = new QueryBuilder()
                 .filter(f -> f
-                                .filterExpression("Property1", EQUALS, "Value1")
-                                .filterExpression("Property2", EQUALS, "Value1"),
+                                .filterExpression("Property1", FilterExpression.EQUALS, "Value1")
+                                .filterExpression("Property2", FilterExpression.EQUALS, "Value1"),
                         "and")
                 .toQuery();
 
         String query5 = new QueryBuilder()
                 .filter(f -> f
-                                .filterExpression("Property1", EQUALS, "Value1")
-                                .filterExpression("Property2", EQUALS, "Value1"),
+                                .filterExpression("Property1", FilterExpression.EQUALS, "Value1")
+                                .filterExpression("Property2", FilterExpression.EQUALS, "Value1"),
                         "or")
                 .toQuery();
 
         String query6 = new QueryBuilder()
                 .filter(f -> f
-                    .filterExpression("Property1", EQUALS, "Value1")
-                    .filterExpression("Property2", EQUALS, "Value2")
+                    .filterExpression("Property1", FilterExpression.EQUALS, "Value1")
+                    .filterExpression("Property2", FilterExpression.EQUALS, "Value2")
                     .and(f1 -> f1  //can be - 'and'
-                        .filterExpression("Property3", EQUALS, "Value3")
-                        .filterExpression("Property4", EQUALS, "Value4")
+                        .filterExpression("Property3", FilterExpression.EQUALS, "Value3")
+                        .filterExpression("Property4", FilterExpression.EQUALS, "Value4")
                     ),
                         "and"   //can be - 'or'
                 )
@@ -86,16 +79,16 @@ public class ODataQueryBuilderApplication {
 
         String query7 = new QueryBuilder()
                 .filter(f -> f
-                        .filterExpression("Property1", EQUALS, "Value1")
-                        .filterExpression("Property2", EQUALS, "Value2")
+                        .filterExpression("Property1", FilterExpression.EQUALS, "Value1")
+                        .filterExpression("Property2", FilterExpression.EQUALS, "Value2")
                         .or(f1 -> f1  //can be - 'or'
-                                .filterExpression("Property3", EQUALS, "Value3")
-                                .filterExpression("Property4", EQUALS, "Value4")
+                                .filterExpression("Property3", FilterExpression.EQUALS, "Value3")
+                                .filterExpression("Property4", FilterExpression.EQUALS, "Value4")
                         )
                 )
                 .toQuery();
 
-        System.out.println(query5);
+        System.out.println(query);
 
     }
 

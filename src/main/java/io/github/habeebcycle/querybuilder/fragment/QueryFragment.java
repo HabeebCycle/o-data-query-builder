@@ -1,6 +1,6 @@
-package com.habeebcycle.framework.querybuilder.fragment;
+package io.github.habeebcycle.querybuilder.fragment;
 
-import com.habeebcycle.framework.querybuilder.keyword.QueryKeyword;
+import io.github.habeebcycle.querybuilder.keyword.QueryKeyword;
 
 public class QueryFragment {
 

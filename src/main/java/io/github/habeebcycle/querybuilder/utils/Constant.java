@@ -1,4 +1,4 @@
-package com.habeebcycle.framework.querybuilder.utils;
+package io.github.habeebcycle.querybuilder.utils;
 
 public class Constant {
 

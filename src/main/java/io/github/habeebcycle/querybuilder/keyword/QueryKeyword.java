@@ -1,4 +1,4 @@
-package com.habeebcycle.framework.querybuilder.keyword;
+package io.github.habeebcycle.querybuilder.keyword;
 
 public enum QueryKeyword {
     ORDER_BY("$orderby=", 1),

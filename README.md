@@ -13,7 +13,7 @@ Use Maven
 ```
 <dependencies>
   <dependency>
-    <groupId>com.habeebcycle.framework</groupId>
+    <groupId>io.github.habeebcycle</groupId>
     <artifactId>o-data-query-builder</artifactId>
     <version>0.0.1</version>
   </dependency>
@@ -22,7 +22,7 @@ Use Maven
 ```
 or Gradle
 ```
-compile 'com.habeebcycle.framework:o-data-query-builder:0.0.1'
+compile 'io.github.habeebcycle:o-data-query-builder:0.0.1'
 ```
 
 ### Usage

@@ -1,4 +1,4 @@
-package com.habeebcycle.framework.querybuilder.keyword;
+package io.github.habeebcycle.querybuilder.keyword;
 
 import static java.lang.String.format;
 

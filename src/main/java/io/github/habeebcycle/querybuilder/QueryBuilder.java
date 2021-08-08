@@ -1,7 +1,7 @@
-package com.habeebcycle.framework.querybuilder;
+package io.github.habeebcycle.querybuilder;
 
-import com.habeebcycle.framework.querybuilder.fragment.QueryFragment;
-import com.habeebcycle.framework.querybuilder.keyword.QueryKeyword;
+import io.github.habeebcycle.querybuilder.fragment.QueryFragment;
+import io.github.habeebcycle.querybuilder.keyword.QueryKeyword;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.habeebcycle.framework.querybuilder.keyword.QueryKeyword.*;
-import static com.habeebcycle.framework.querybuilder.utils.Constant.*;
+import static io.github.habeebcycle.querybuilder.keyword.QueryKeyword.*;
+import static io.github.habeebcycle.querybuilder.utils.Constant.*;
 import static java.lang.String.format;
 import static java.util.Arrays.asList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
