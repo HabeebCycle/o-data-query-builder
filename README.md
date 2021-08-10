@@ -10,7 +10,7 @@ Inspired by [Jared Mahan](https://github.com/jaredmahan/odata-query-builder) An 
 #### Java 1.8 and later is required
 
 Use Maven
-```
+```xml
 <dependencies>
   <dependency>
     <groupId>io.github.habeebcycle</groupId>
@@ -21,12 +21,16 @@ Use Maven
 </dependencies>
 ```
 or Gradle
+```groovy
+implementation group: 'io.github.habeebcycle', name: 'o-data-query-builder', version: '0.0.1'
 ```
-compile 'io.github.habeebcycle:o-data-query-builder:0.0.1'
+or
+```groovy
+implementation 'io.github.habeebcycle:o-data-query-builder:0.0.1'
 ```
 
 ### Usage
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .count()
         .top(5)
@@ -54,7 +58,7 @@ Operator Options:
 - Less Than: `lt` - `FilterExpression.LESS_THAN`
 - Less Than or Equal: `le` - `FilterExpression.LESS_THAN_EQUAL`
 
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .filter(f -> f.filterExpression("Property1", EQUALS, "Value1"))
         .toQuery();
@@ -66,7 +70,7 @@ Filter phrases are to be used with [canonical functions](http://docs.oasis-open.
 
 Below are a few examples:
 
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .filter(f ->
             f.filterPhrase(FilterPhrases.contains("Property1","Value1"))
@@ -81,15 +85,15 @@ Outputs: `?$filter=contains(Property1,'Value1') and startswith(Property1,'Value1
 
 ## Conditional Filtering Operators
 By default, when you utilize `.filter` you are using the `and` operator. You can be explicit by passing your operator into the filter as a secondary parameter.
-```
-const query = new QueryBuilder().filter(f => f
+```jshelllanguage
+String query = new QueryBuilder().filter(f -> f
         .filterExpression("Property1", EQUALS, "Value1")
         .filterExpression("Property2", EQUALS, "Value1"),
-        AND
-    ).toQuery();
+        AND)
+    .toQuery();
 ```
 Outputs: `?$filter=Property1 eq 'Value1' and Property2 eq 'Value1'`
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .filter(f -> f
             .filterExpression("Property1", EQUALS, "Value1")
@@ -99,7 +103,7 @@ String query = new QueryBuilder()
 ```
 Outputs: `?$filter=Property1 eq 'Value1' and Property2 eq 'Value2'`
 
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .filter(f -> f
             .filterExpression("Property1", EQUALS, "Value1")
@@ -111,7 +115,7 @@ Outputs: `?$filter=Property1 eq 'Value1' or Property2 eq 'Value2'`
 
 ## Nested Filter Chaining
 Nested or [grouped](http://docs.oasis-open.org/odata/odata/v4.01/cs01/part2-url-conventions/odata-v4.01-cs01-part2-url-conventions.html#sec_Grouping) filtering is used when we need to write a more complex filter for a data set. This can be done by utilizing `.and()` or `.or()` with the filter.
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .filter(f -> f
             .filterExpression("Property1", EQUALS, "Value1")
@@ -125,7 +129,7 @@ String query = new QueryBuilder()
 ```
 Outputs: `?$filter=Property1 eq 'Value1' and Property2 eq 'Value2' and (Property3 eq 'Value3' and Property4 eq 'Value4')`
 
-```
+```jshelllanguage
 String query = new QueryBuilder()
         .filter(f -> f
             .filterExpression("Property1", EQUALS, "Value1")
@@ -141,7 +145,7 @@ Outputs: `?$filter=Property1 eq 'Value1' and Property2 eq 'Value2' and (Property
 
 
 ### Reminder: We can still explicitly control the conditional operators within each of the filters by utilizing the filter's condition operator parameter which gives us even more control over the filter.
-```
+```jshelllanguage
 String query6 = new QueryBuilder()
         .filter(f -> f
             .filterExpression("Property1", EQUALS, "Value1")
