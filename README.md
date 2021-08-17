@@ -7,7 +7,7 @@ Inspired by [Jared Mahan](https://github.com/jaredmahan/odata-query-builder) An 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 ## Installation
-#### Java 1.8 and later is required
+#### Java 9 and later is required
 
 Use Maven
 ```xml

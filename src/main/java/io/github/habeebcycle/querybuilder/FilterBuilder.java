@@ -12,7 +12,6 @@ import static io.github.habeebcycle.querybuilder.keyword.QueryKeyword.FILTER;
 import static io.github.habeebcycle.querybuilder.utils.Constant.AND;
 import static io.github.habeebcycle.querybuilder.utils.Constant.OR;
 import static java.lang.String.format;
-import static java.util.List.of;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class FilterBuilder {
@@ -22,11 +21,11 @@ public class FilterBuilder {
     public FilterBuilder() {}
 
     public FilterBuilder filterExpression (String field, FilterExpression expression, Object value) {
-        return filterExpressions(field, expression, of(value));
+        return filterExpressions(field, expression, List.of(value));
     }
 
     public FilterBuilder filterExpressions (String field, FilterExpression expression, Object... value) {
-        return filterExpressions(field, expression, of(value));
+        return filterExpressions(field, expression, List.of(value));
     }
 
     public FilterBuilder filterExpressions (String field, FilterExpression expression, List<Object> values) {
@@ -39,11 +38,11 @@ public class FilterBuilder {
     }
 
     public FilterBuilder filterPhrase (String phrase) {
-        return filterPhrases(of(phrase));
+        return filterPhrases(List.of(phrase));
     }
 
     public FilterBuilder filterPhrases (String... phrases) {
-        return filterPhrases(of(phrases));
+        return filterPhrases(List.of(phrases));
     }
 
     public FilterBuilder filterPhrases (List<String> phrases) {
