@@ -22,11 +22,11 @@ Use Maven
 ```
 or Gradle
 ```groovy
-implementation group: 'io.github.habeebcycle', name: 'o-data-query-builder', version: '0.0.1'
+implementation group: 'io.github.habeebcycle', name: 'o-data-query-builder', version: '0.0.2'
 ```
 or
 ```groovy
-implementation 'io.github.habeebcycle:o-data-query-builder:0.0.1'
+implementation 'io.github.habeebcycle:o-data-query-builder:0.0.2'
 ```
 
 ### Usage
