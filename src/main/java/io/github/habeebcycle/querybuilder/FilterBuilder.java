@@ -12,6 +12,7 @@ import static io.github.habeebcycle.querybuilder.keyword.QueryKeyword.FILTER;
 import static io.github.habeebcycle.querybuilder.utils.Constant.AND;
 import static io.github.habeebcycle.querybuilder.utils.Constant.OR;
 import static java.lang.String.format;
+import static java.util.List.of;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 public class FilterBuilder {
@@ -21,13 +22,34 @@ public class FilterBuilder {
     public FilterBuilder() {}
 
     public FilterBuilder filterExpression (String field, FilterExpression expression, Object value) {
-        String fragment = format("%s %s %s", field, expression.getExpression(), computeFragmentValue(value));
-        this.queryFragment.add(new QueryFragment(FILTER, fragment));
+        return filterExpressions(field, expression, of(value));
+    }
+
+    public FilterBuilder filterExpressions (String field, FilterExpression expression, Object... value) {
+        return filterExpressions(field, expression, of(value));
+    }
+
+    public FilterBuilder filterExpressions (String field, FilterExpression expression, List<Object> values) {
+        String fragment = null;
+        for(Object o : values) {
+            fragment = format("%s %s %s", field, expression.getExpression(), computeFragmentValue(o));
+            this.queryFragment.add(new QueryFragment(FILTER, fragment));
+        }
         return this;
     }
 
     public FilterBuilder filterPhrase (String phrase) {
-        this.queryFragment.add(new QueryFragment(FILTER, phrase));
+        return filterPhrases(of(phrase));
+    }
+
+    public FilterBuilder filterPhrases (String... phrases) {
+        return filterPhrases(of(phrases));
+    }
+
+    public FilterBuilder filterPhrases (List<String> phrases) {
+        for(String phrase : phrases) {
+            this.queryFragment.add(new QueryFragment(FILTER, phrase));
+        }
         return this;
     }
 

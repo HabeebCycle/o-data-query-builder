@@ -1,8 +1,11 @@
 import io.github.habeebcycle.querybuilder.QueryBuilder;
+import io.github.habeebcycle.querybuilder.keyword.FilterExpression;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static io.github.habeebcycle.querybuilder.keyword.FilterExpression.EQUALS;
+import java.util.List;
+
+import static io.github.habeebcycle.querybuilder.keyword.FilterExpression.EQ;
 import static io.github.habeebcycle.querybuilder.keyword.FilterPhrases.*;
 import static io.github.habeebcycle.querybuilder.utils.Constant.AND;
 import static io.github.habeebcycle.querybuilder.utils.Constant.OR;
@@ -18,7 +21,7 @@ class QueryBuilderApplicationTests {
                 .skip(5)
                 .expand("MyProps")
                 .orderBy("MyProp2")
-                .filter(f -> f.filterExpression("Property", EQUALS, "MyValue"))
+                .filter(f -> f.filterExpression("Property", EQ, "MyValue"))
                 .select("My Properties, mmmm")
                 .toQuery();
 
@@ -29,7 +32,7 @@ class QueryBuilderApplicationTests {
     void filterQueryTest() {
         String expected = "?$filter=Property1 eq 'Value1'";
         String query = new QueryBuilder()
-                .filter(f -> f.filterExpression("Property1", EQUALS, "Value1"))
+                .filter(f -> f.filterExpression("Property1", EQ, "Value1"))
                 .toQuery();
 
         Assertions.assertEquals(expected, query);
@@ -43,9 +46,9 @@ class QueryBuilderApplicationTests {
                         f.filterPhrase(contains("Property1","Value1"))
                                 .filterPhrase(startsWith("Property1","Value1"))
                                 .filterPhrase(endsWith("Property1","Value1"))
-                                .filterPhrase(indexOf("Property1","Value1", EQUALS, 1))
-                                .filterPhrase(length("Property1", EQUALS, 19))
-                                .filterPhrase(substring("Property1", 1, 2, EQUALS, "ab"))
+                                .filterPhrase(indexOf("Property1","Value1", EQ, 1))
+                                .filterPhrase(length("Property1", EQ, 19))
+                                .filterPhrase(substring("Property1", 1, 2, EQ, "ab"))
                 ).toQuery();
 
         Assertions.assertEquals(expected, query);
@@ -56,16 +59,16 @@ class QueryBuilderApplicationTests {
         String expectedAnd = "?$filter=Property1 eq 'Value1' and Property2 eq 'Value1'";
         String queryAnd = new QueryBuilder()
                 .filter(f -> f
-                                .filterExpression("Property1", EQUALS, "Value1")
-                                .filterExpression("Property2", EQUALS, "Value1"),
+                                .filterExpression("Property1", EQ, "Value1")
+                                .filterExpression("Property2", EQ, "Value1"),
                         AND)
                 .toQuery();
 
         String expectedOr = "?$filter=Property1 eq 'Value1' or Property2 eq 'Value1'";
         String queryOr = new QueryBuilder()
                 .filter(f -> f
-                                .filterExpression("Property1", EQUALS, "Value1")
-                                .filterExpression("Property2", EQUALS, "Value1"),
+                                .filterExpression("Property1", EQ, "Value1")
+                                .filterExpression("Property2", EQ, "Value1"),
                         OR)
                 .toQuery();
 
@@ -79,14 +82,34 @@ class QueryBuilderApplicationTests {
 
         String query = new QueryBuilder()
                 .filter(f -> f
-                        .filterExpression("Property1", EQUALS, "Value1")
-                        .filterExpression("Property2", EQUALS, "Value2")
+                        .filterExpression("Property1", EQ, "Value1")
+                        .filterExpression("Property2", EQ, "Value2")
                         .or(f1 -> f1
-                                .filterExpression("Property3", EQUALS, "Value3")
-                                .filterExpression("Property4", EQUALS, "Value4")
+                                .filterExpression("Property3", EQ, "Value3")
+                                .filterExpression("Property4", EQ, "Value4")
                         )
                 )
                 .toQuery();
+
+        Assertions.assertEquals(expected, query);
+    }
+
+    @Test
+    void combineFilters () {
+        String expected = "?$filter=Property1 eq 'value1' and Property1 eq 'value2'";
+        String[] values = {"value1", "value2"};
+        String query = new QueryBuilder()
+                .filter(f -> f.filterExpressions("Property1", FilterExpression.EQ, values)).toQuery();
+
+        Assertions.assertEquals(expected, query);
+    }
+
+    @Test
+    void combinePharses() {
+        String expected = "?$filter=startswith(Property1,'Value1') and contains(Property1,'Value1') and length(Property1) eq 19";
+        List<String> phrases = List.of("startswith(Property1,'Value1')", "contains(Property1,'Value1')", "length(Property1) eq 19");
+        String query = new QueryBuilder()
+                .filter(f -> f.filterPhrases(phrases)).toQuery();
 
         Assertions.assertEquals(expected, query);
     }

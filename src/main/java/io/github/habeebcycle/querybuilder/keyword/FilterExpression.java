@@ -1,12 +1,12 @@
 package io.github.habeebcycle.querybuilder.keyword;
 
 public enum FilterExpression {
-    EQUALS("eq"),
-    NOT_EQUALS("ne"),
-    GREATER_THAN("gt"),
-    LESS_THAN("le"),
-    GREATER_THAN_EQUAL("ge"),
-    LESS_THAN_EQUAL("le");
+    EQ("eq"),
+    NE("ne"),
+    GT("gt"),
+    LT("lt"),
+    GE("ge"),
+    LE("le");
 
     private final String expression;
 
