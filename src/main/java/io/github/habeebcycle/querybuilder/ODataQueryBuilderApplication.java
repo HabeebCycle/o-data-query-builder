@@ -21,6 +21,8 @@ public class ODataQueryBuilderApplication {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss a");
         LocalDateTime ldt = LocalDateTime.parse(strDate, format);
         System.out.println(ldt);
+        Object i = 0;
+        System.out.println(Double.valueOf(String.valueOf(i)));
 
         DateTimeFormatter newFormat = DateTimeFormatter.ofPattern(ZULU_TIME_FORMAT);
         System.out.println(ldt.format(newFormat));
@@ -57,7 +59,7 @@ public class ODataQueryBuilderApplication {
                     f.filterPhrase("contains(Property1,'Value1')")
                         .filterPhrase("startswith(Property1,'Value1')")
                         .filterPhrase("endswith(Property1,'Value1')")
-                        .filterPhrase("indexOf(Property1,'Value1') eq 1")
+                        .filterPhrase("indexof(Property1,'Value1') eq 1")
                         .filterPhrase("length(Property1) eq 19")
                         .filterPhrase("substring(Property1, 1, 2) eq 'ab'")
                 ).toQuery();

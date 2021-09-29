@@ -2,6 +2,9 @@ package io.github.habeebcycle.querybuilder.keyword;
 
 import static java.lang.String.format;
 
+/**
+ * Filter Phrases
+ */
 public class FilterPhrases {
 
     public static String concat(String param1, String param2) {
@@ -21,7 +24,7 @@ public class FilterPhrases {
     }
 
     public static String indexOf(String param, String value, FilterExpression expression, int result) {
-        return format("indexOf(%s,'%s') %s %s", param, value, expression.getExpression(), result);
+        return format("indexof(%s,'%s') %s %s", param, value, expression.getExpression(), result);
     }
 
     public static String length(String param, FilterExpression expression, int result) {
@@ -34,6 +37,16 @@ public class FilterPhrases {
 
     public static String substring(String param, int args1, int args2, FilterExpression expression, String result) {
         return format("substring(%s, %s, %s) %s '%s'", param, args1, args2, expression.getExpression(), result);
+    }
+
+    /**
+     * substringof - Available in OData V 3.0
+     * @param searchString String to search
+     * @param searchInString String or property to search the string above
+     * @return substringof('Alfreds',CompanyName)
+     */
+    public static String substringOf(String searchString, String searchInString) {
+        return format("substringof('%s',%s)", searchString, searchInString);
     }
 
     public static String toLower(String param, FilterExpression expression, String result) {

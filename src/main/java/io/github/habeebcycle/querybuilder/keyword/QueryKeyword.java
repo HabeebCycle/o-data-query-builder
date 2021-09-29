@@ -1,5 +1,8 @@
 package io.github.habeebcycle.querybuilder.keyword;
 
+/**
+ * QueryKeyword
+ */
 public enum QueryKeyword {
     ORDER_BY("$orderby=", 1),
     TOP("$top=", 2),

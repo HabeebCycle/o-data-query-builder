@@ -1,10 +1,11 @@
 # odata-query-builder
-OData Query Builder in Java for Java Applications
+OData Query Builder in Java for Java Applications v 0.0.4
 
 Inspired by [Jared Mahan](https://github.com/jaredmahan/odata-query-builder) An eloquently fluent OData query builder for NPM
 
 [![Build Status](https://travis-ci.org/jaredmahan/angular-searchFilter.svg?branch=master)](https://travis-ci.org/jaredmahan/odata-query-builder)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+![Java Version](https://img.shields.io/badge/java-%3E%3D%201.9-success)
 
 ## Installation
 #### Java 9 and later is required
@@ -15,18 +16,18 @@ Use Maven
   <dependency>
     <groupId>io.github.habeebcycle</groupId>
     <artifactId>o-data-query-builder</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
   </dependency>
   ...
 </dependencies>
 ```
 or Gradle
 ```groovy
-implementation group: 'io.github.habeebcycle', name: 'o-data-query-builder', version: '0.0.2'
+implementation group: 'io.github.habeebcycle', name: 'o-data-query-builder', version: '0.0.4'
 ```
 or
 ```groovy
-implementation 'io.github.habeebcycle:o-data-query-builder:0.0.2'
+implementation 'io.github.habeebcycle:o-data-query-builder:0.0.4'
 ```
 
 ### Usage
@@ -98,7 +99,7 @@ String query = new QueryBuilder()
                 .filterPhrase(FilterPhrases.substring("Property1", 1, 2, EQ, "ab"))
         ).toQuery();
 ```
-Outputs: `?$filter=contains(Property1,'Value1') and startswith(Property1,'Value1') and endswith(Property1,'Value1') and indexOf(Property1,'Value1') eq 1 and length(Property1) eq 19 and substring(Property1, 1, 2) eq 'ab'`
+Outputs: `?$filter=contains(Property1,'Value1') and startswith(Property1,'Value1') and endswith(Property1,'Value1') and indexof(Property1,'Value1') eq 1 and length(Property1) eq 19 and substring(Property1, 1, 2) eq 'ab'`
 
 You can also combine filter phrases in version 0.0.2 and above:
 

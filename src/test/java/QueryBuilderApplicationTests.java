@@ -40,7 +40,7 @@ class QueryBuilderApplicationTests {
 
     @Test
     void filterPhraseTest() {
-        String expected = "?$filter=contains(Property1,'Value1') and startswith(Property1,'Value1') and endswith(Property1,'Value1') and indexOf(Property1,'Value1') eq 1 and length(Property1) eq 19 and substring(Property1, 1, 2) eq 'ab'";
+        String expected = "?$filter=contains(Property1,'Value1') and startswith(Property1,'Value1') and endswith(Property1,'Value1') and indexof(Property1,'Value1') eq 1 and length(Property1) eq 19 and substring(Property1, 1, 2) eq 'ab'";
         String query = new QueryBuilder()
                 .filter(f ->
                         f.filterPhrase(contains("Property1","Value1"))
@@ -98,8 +98,9 @@ class QueryBuilderApplicationTests {
     void combineFilters () {
         String expected = "?$filter=Property1 eq 'value1' and Property1 eq 'value2'";
         String[] values = {"value1", "value2"};
+        List<String> values1 = List.of(values);
         String query = new QueryBuilder()
-                .filter(f -> f.filterExpressions("Property1", FilterExpression.EQ, values)).toQuery();
+                .filter(f -> f.filterExpressions("Property1", FilterExpression.EQ, List.of(values))).toQuery();
 
         Assertions.assertEquals(expected, query);
     }
